@@ -1,1 +1,133 @@
-hello
+<head>
+  <link href="style.css" rel="stylesheet" />
+</head>
+<body>
+  <div class="title-icon-div">
+    <img class="duck-logo" src="purpleducknobg.png" />
+  </div>
+  <div class="token-info">The duck is purple.</div>
+  <div class="tg-info">Click anywhere for TG</div>
+
+  <canvas id="canvas"></canvas>
+  <script>
+    function fn(){
+        window.open("https://t.me/theduckispurple");
+    }
+    document.body.addEventListener('click', fn, true); 
+    var size = 500;
+    var c = document.getElementById("canvas");
+
+    // Setting the width and height of the canvas
+    if (
+      navigator.platform != "iPad" &&
+      navigator.platform != "iPhone" &&
+      navigator.platform != "iPod"
+    ) {
+      c.width = window.innerWidth;
+      c.height = window.innerHeight;
+    } else {
+      c.width = document.body.clientWidth;
+      c.height = document.body.clientHeight;
+    }
+    var ctx = c.getContext("2d");
+
+    var center = { x: c.width / 2, y: 0 };
+    var minSegmentHeight = c.height/200;
+    var groundHeight = c.height;
+    var color = "hsl(270, 100%, 60%)";
+    var roughness = 1.8;
+    var maxDifference = 300;
+
+    ctx.globalCompositeOperation = "lighter";
+
+    ctx.strokeStyle = color;
+    ctx.shadowColor = color;
+
+    ctx.fillStyle = color;
+    ctx.fillStyle = "hsla(0, 0%, 10%, 0.2)";
+    ctx.fillRect(0, 0, c.width, c.height);
+    var offset = 3;
+    var currOffset = 0;
+    var mousePosX = 0;
+    var mousePosY = 0;
+
+    //Get Mouse Position
+    function getMousePos(c, evt) {
+      var rect = c.getBoundingClientRect();
+      mousePosX = evt.clientX;
+      mousePosY = evt.clientY;
+      console.log(mousePosX);
+    }
+    document.addEventListener(
+      "mousemove",
+      function (evt) {
+        var mousePos = getMousePos(c, evt);
+      },
+      false
+    );
+
+    function render() {
+      ctx.shadowBlur = 0;
+      ctx.globalCompositeOperation = "multiply";
+      ctx.fillStyle = "hsla(0, 0%, 10%, 0.1)";
+      ctx.fillRect(0, 0, c.width, c.height);
+      currOffset += 1;
+      if (currOffset < offset) {
+        return;
+      }
+      currOffset = 0;
+      lightnings = Math.random() * 10 + 5;
+      for (var j = 0; j < lightnings; j++) {
+        ctx.strokeStyle = color;
+        ctx.shadowColor = color;
+        var lightning = createLightning();
+        ctx.beginPath();
+        for (var i = 0; i < lightning.length; i++) {
+          ctx.lineTo(lightning[i].x, lightning[i].y);
+        }
+        ctx.lineWidth = 5;
+
+        ctx.shadowBlur = 15;
+        ctx.shadowColor = color;
+        ctx.globalCompositeOperation = "source-over";
+        ctx.stroke();
+        ctx.strokeStyle = "hsla(0, 100%, 100%, 0.5)";
+        ctx.shadowBlur = 0;
+        ctx.lineWidth = 2;
+        ctx.stroke();
+        //requestAnimationFrame(render);
+      }
+    }
+
+    function createLightning() {
+      var segmentHeight = groundHeight - center.y;
+      var lightning = [];
+      startX = Math.random() * c.width;
+      lightning.push({ x: startX, y: center.y });
+      lightning.push({
+        x: startX + Math.random() * c.height - c.height / 2,
+        y: groundHeight,
+      });
+      var currDiff = maxDifference;
+      while (segmentHeight > minSegmentHeight) {
+        var newSegments = [];
+        for (var i = 0; i < lightning.length - 1; i++) {
+          var start = lightning[i];
+          var end = lightning[i + 1];
+          var midX = (start.x + end.x) / 2;
+          var newX = midX + (Math.random() * 2 - 1) * currDiff;
+          newSegments.push(start, { x: newX, y: (start.y + end.y) / 2 });
+        }
+
+        newSegments.push(lightning.pop());
+        lightning = newSegments;
+
+        currDiff /= roughness;
+        segmentHeight /= 2;
+      }
+      return lightning;
+    }
+
+    setInterval(render, 20);
+  </script>
+</body>
