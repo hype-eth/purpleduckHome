@@ -68,8 +68,8 @@
 
     function render() {
       ctx.shadowBlur = 0;
-      ctx.globalCompositeOperation = "source-over";
-      ctx.fillStyle = "hsla(270, 100%, 10%, 0.1)";
+      ctx.fillStyle = "hsla(270, 100%, 0%, 0.1)";
+      ctx.globalCompositeOperation = "multiply";
       ctx.fillRect(0, 0, c.width, c.height);
       currOffset += 1;
       if (currOffset < offset) {
