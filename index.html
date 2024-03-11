@@ -6,14 +6,21 @@
     <img class="duck-logo" src="purpleducknobg.png" />
   </div>
   <div class="token-info">The duck is purple.</div>
-  <div class="tg-info">Click anywhere for TG</div>
+  <div class="tg-info" id="telegram">TELEGRAM</div>
+  <div class="tg-info" id="twitter">TWITTER</div>
+  <div class="tg-info" id="twitter">RAYDIUM</div>
+  <div class="tg-info" id="twitter">DEXSCREENER</div>
 
   <canvas id="canvas"></canvas>
   <script>
-    function fn(){
+    function fntg(){
         window.open("https://t.me/theduckispurple");
     }
-    document.body.addEventListener('click', fn, true); 
+    document.getElementById('telegram').addEventListener('click', fntg, true); 
+    function fntw(){
+        window.open("https://twitter.com/theduckispurple");
+    }
+    document.getElementById('twitter').addEventListener('click', fntw, true); 
     var size = 500;
     var c = document.getElementById("canvas");
 
@@ -56,7 +63,7 @@
       var rect = c.getBoundingClientRect();
       mousePosX = evt.clientX;
       mousePosY = evt.clientY;
-      console.log(mousePosX);
+      //console.log(mousePosX);
     }
     document.addEventListener(
       "mousemove",
@@ -76,7 +83,7 @@
         return;
       }
       currOffset = 0;
-      lightnings = Math.random() * 2 + 3;
+      lightnings = Math.random() * 5 + 3;
       for (var j = 0; j < lightnings; j++) {
         ctx.strokeStyle = color;
         ctx.shadowColor = color;
@@ -94,7 +101,7 @@
         ctx.globalCompositeOperation = "lighten";
         ctx.strokeStyle = "hsla(0, 100%, 100%, 0.5)";
         ctx.shadowBlur = 0;
-        ctx.lineWidth = 2;
+        ctx.lineWidth = 1;
         ctx.stroke();
         //requestAnimationFrame(render);
       }
@@ -129,6 +136,6 @@
       return lightning;
     }
 
-    setInterval(render, 1000);
+    setInterval(render, 20);
   </script>
 </body>
