@@ -19,7 +19,7 @@ canvas {
   height: 25vw;
   display: inline-block;
 
-  animation-duration: 0.33s;
+  animation-duration: 1s;
   animation-name: glowmove;
   animation-iteration-count: infinite;
   animation-timing-function: ease-in-out;
@@ -37,7 +37,7 @@ canvas {
   height: 5vw;
   display: inline-block;
   display: none;
-  animation-duration: 0.33s;
+  animation-duration: 1s;
   animation-name: glowmove;
   animation-iteration-count: infinite;
   animation-timing-function: ease-in-out;
@@ -51,7 +51,7 @@ canvas {
   font-size: 200%;
   height: 5vw;
   display: inline-block;
-  animation-duration: 0.33s;
+  animation-duration: 1s;
   animation-name: glowmovewhite;
   animation-iteration-count: infinite;
   animation-timing-function: ease-in-out;
