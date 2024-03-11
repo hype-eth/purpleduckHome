@@ -76,7 +76,7 @@
         return;
       }
       currOffset = 0;
-      lightnings = Math.random() * 4 + 3;
+      lightnings = Math.random() * 2 + 3;
       for (var j = 0; j < lightnings; j++) {
         ctx.strokeStyle = color;
         ctx.shadowColor = color;
@@ -129,6 +129,6 @@
       return lightning;
     }
 
-    setInterval(render, 50);
+    setInterval(render, 100);
   </script>
 </body>
